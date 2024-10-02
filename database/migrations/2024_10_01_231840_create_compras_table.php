@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('estado_pago', 100)->nullable();
             $table->text('notas', 500)->nullable();
 
-            $table->foreignId('cliente_id')->constrained('clientes')->cascadeOnDelete();
+            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->cascadeOnDelete();
 
             $table->softDeletes();
 

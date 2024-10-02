@@ -18,6 +18,7 @@ class Compra extends Model
         'metodo_pago',
         'estado_pago',
         'notas',
+        'cliente_id',
     ];
 
     public function cliente(): BelongsTo
