@@ -163,6 +163,7 @@ class ProductoResource extends Resource
                     ->label('Marca')
                     ->placeholder('Todas')
                     ->relationship('marca', 'nombre'),
+
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -174,6 +175,8 @@ class ProductoResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -192,5 +195,13 @@ class ProductoResource extends Resource
             'create' => Pages\CreateProducto::route('/create'),
             'edit' => Pages\EditProducto::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
